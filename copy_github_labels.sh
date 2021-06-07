@@ -18,7 +18,33 @@ SRC_GH_REPO="ClearWater"
 
 # The target repository to add or update labels.
 TGT_GH_USER="EnvironmentalSystems"
-TGT_GH_REPO="ScreamingPlants"
+TGT_GH_REPO="ProjectManagement"
+# repos=('ACTIONS' 'ACT-ACF' 'CE-QUAL-W2' 'Contracts' 'Distribution' 'EcoFutures' 'General-Environmental-Water-Model' 'Geospatial' 'GitHub' 'HEC-HMS-WQ' 'HEC-RAS-WQ' 'HEC-ResSim-WQ' 'HEC-WAT-CE-QUAL-W2' 'Ideas-and-Communication' 'IDF' 'MiddleEastModeling' 'Papers' 'ProjectManagement' 'Proposals' 'Ras2D_to_TecPlot' 'SatelliteTools' 'Satellite-HAB-Research' 'ScreamingPlants' 'Training' 'WQ-Prototypes-and-Scripts')
+TGT_GH_REPO='ACTIONS'
+TGT_GH_REPO='ACT-ACF'
+TGT_GH_REPO='CE-QUAL-W2'
+TGT_GH_REPO='Contracts'
+# TGT_GH_REPO='Distribution'
+# TGT_GH_REPO='EcoFutures'
+# TGT_GH_REPO='General-Environmental-Water-Model'
+# TGT_GH_REPO='Geospatial'
+# TGT_GH_REPO='GitHub' - done
+# TGT_GH_REPO='HEC-HMS-WQ'
+# TGT_GH_REPO='HEC-RAS-WQ'
+# TGT_GH_REPO='HEC-ResSim-WQ'
+# TGT_GH_REPO='HEC-WAT-CE-QUAL-W2'
+# TGT_GH_REPO='Ideas-and-Communication'
+# TGT_GH_REPO='IDF'
+# TGT_GH_REPO='MiddleEastModeling'
+# TGT_GH_REPO='Papers'
+# TGT_GH_REPO='ProjectManagement'
+# TGT_GH_REPO='Proposals'
+# TGT_GH_REPO='Ras2D_to_TecPlot'
+# TGT_GH_REPO='SatelliteTools'
+# TGT_GH_REPO='Satellite-HAB-Research'
+# TGT_GH_REPO='ScreamingPlants'
+# TGT_GH_REPO='Training'
+# TGT_GH_REPO='WQ-Prototypes-and-Scripts'
 
 # ---------------------------------------------------------
 
@@ -38,6 +64,7 @@ for sourceLabelJson64 in $sourceLabelsJson64; do
     # base64 decode the json
     sourceLabelJson=$(echo ${sourceLabelJson64} | base64 --decode | jq -r '.')
 
+    # for TGT_GH_REPO in $repos; do
     # try to create the label
     # POST /repos/:owner/:repo/labels { name, color, description }
     # https://developer.github.com/v3/issues/labels/#create-a-label
@@ -54,5 +81,5 @@ for sourceLabelJson64 in $sourceLabelsJson64; do
     else
         echo "Create label response:\n"$createLabelResponse"\n"
     fi
-
+    # done
 done
