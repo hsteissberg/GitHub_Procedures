@@ -30,11 +30,9 @@ def export_issues(outfile, user_name, token, repositories, params={}, issue_labe
     print(f'Number of issues: {len(issues)}')
     g = open(outfile, 'w')
     g.write('Title,Assignee,Labels\n')
-    # g.write('Title,Labels\n')
     for issue in issues:
         try:
             title = issue['title']
-            print(title)
             labels = issue['labels']
             assignees = issue['assignees']
 
@@ -104,7 +102,7 @@ if __name__ == '__main__':
         'WQ-Prototypes-and-Scripts'
     ]
 
-    repositories = ['ScreamingPlants']
+    # repositories = ['ScreamingPlants']
 
     for repo_name in repositories:
         params = { 'state': 'open'}
