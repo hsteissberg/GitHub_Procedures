@@ -1,3 +1,16 @@
+'''
+Download "Issues" from GitHub
+
+This version uses the "PyGitHub" module, which provides a relatively 
+limited amount of information, but it is easy to use.
+
+This script was created using information provided by:
+https://towardsdatascience.com/all-the-things-you-can-do-with-github-api-and-python-f01790fca131
+
+Author: Todd Steissberg
+Date: June 6, 2021
+'''
+
 from github import Github
 import os
 from pprint import pprint
@@ -11,9 +24,8 @@ state = 'open'
 g = Github(token)
 
 for repo_name in repositories:
-    full_repo_name = '{}/{}'.format(user_name, repo_name)
-    print()
-    print('Issues in repository: {}'.format(full_repo_name))
+    full_repo_name = f'{user_name}/{repo_name}'
+    print(f'\nIssues in repository: {full_repo_name}')
     repo = g.get_repo(full_repo_name)
     issues = repo.get_issues(state=state)
     # pprint(issues.get_page(0))
