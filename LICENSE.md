@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 Environmental Systems Modeling Research Group
+Copyright (c) 2021 Environmental Systems Modeling Team, Environmental Laboratory, U.S. Army Engineer Research and Development Center
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
