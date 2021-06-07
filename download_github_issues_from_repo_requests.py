@@ -18,7 +18,7 @@ from pprint import pprint
 
 # Get data from GitHub
 def get_request(user_name, repo_name, token, state='open'):
-    query_url = f"https://api.github.com/repos/{user_name}/{repo_name}/issues"
+    query_url = f"https://api.github.com/repos/{user_name}/{repo_name}/issues?per_page=200"
     params = { 'state': state }
     headers = {'Authorization': f'token {token}'}
     issues = requests.get(query_url, headers=headers, params=params)
@@ -26,36 +26,48 @@ def get_request(user_name, repo_name, token, state='open'):
 
 # Export results to CSV
 def export_issues(outfile, user_name, repositories, token, state='open'):
+    print(f'Processing: {repo_name}')
     issues = get_request(user_name, repo_name, token, state=state)
+    print(f'Length of issues = {len(issues)}')
     g = open(outfile, 'w')
     g.write('Title,Labels\n')
     for issue in issues:
-        title = issue['title']
-        labels = issue['labels']
-        hline = f'"{title}","'
-        for label in labels:
-            hline += label['name'] + ', '
-        hline = hline.strip().strip(',') + '"\n'
-        g.write(hline)
+        try:
+            title = issue['title']
+            labels = issue['labels']
+            hline = f'"{title}","'
+            for label in labels:
+                hline += label['name'] + ', '
+            hline = hline.strip().strip(',') + '"\n'
+            g.write(hline)
+        except:
+            print(issue)
     g.close
     # pprint(r.json())
 
 # Export results to CSV, only if the specified label is in the issue
 def export_issues_with_label(outfile, user_name, repositories, token, state='open', issue_label='bug'):
+    print(f'Processing: {repo_name}')
     issues = get_request(user_name, repo_name, token, state='open')
+    print(f'Length of issues = {len(issues)}')
     g = open(outfile, 'w')
     g.write('Title,Labels\n')
     for issue in issues:
-        title = issue['title']
-        labels = issue['labels']
-        for label in labels:
-            label_name = label['name']
-            if label_name == issue_label:
-                g.write(f'"{title}","{label_name}"\n')
+        try:
+            title = issue['title']
+            labels = issue['labels']
+            for label in labels:
+                label_name = label['name']
+                if label_name == issue_label:
+                    g.write(f'"{title}","{label_name}"\n')
+        except:
+            print(issue)
     g.close
 
 if __name__ == '__main__':
     user_name = 'EnvironmentalSystems'
+    token = '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'
+
     repositories = [
         'ACTIONS',
         'ACT-ACF',
@@ -67,9 +79,9 @@ if __name__ == '__main__':
         'General-Environmental-Water-Model',
         'Geospatial',
         'GitHub',
-        'HEC-HMS',
-        'HEC-RAS',
-        'HEC-ResSim',
+        'HEC-HMS-WQ',
+        'HEC-RAS-WQ',
+        'HEC-ResSim-WQ',
         'HEC-WAT-CE-QUAL-W2',
         'Ideas-and-Communication',
         'IDF',
@@ -84,9 +96,8 @@ if __name__ == '__main__':
         'Training',
         'WQ-Prototypes-and-Scripts'
     ]
-    token = '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'
-    state = 'open'
 
+    state = 'open'
     for repo_name in repositories:
         export_issues(f'output/{repo_name}_issues.csv', user_name, repositories, token, state=state)
         export_issues_with_label(f'output/{repo_name}_issues_with_bugs.csv', user_name, repositories, token, state=state, issue_label='effort: 8')
